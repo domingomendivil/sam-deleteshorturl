@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Short URL Generator
+  SAM Template for Short URL generator
+
+Globals:
+  Function:
+    Timeout: 20
+
+Parameters:
+  BaseURL:
+    Type: String
+    Default: "http://localhost:3000"
+    
+Resources:
+  DeleteShortFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: deleteshorturl
+      Handler: deleteshorturl.apigateway.DeleteShortURL::handleRequest
+      Runtime: java11
+      Architectures:
+        - x86_64
+      MemorySize: 512
+      Environment: 
+        Variables:
+          PARAM1: VALUE
+          JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1 
+          BASE_URL: !Ref BaseURL
+      Events:
+        DelteShortURLevent:
+          Type: Api 
+          Properties:
+            Path: /shortURL
+            Method: delete
