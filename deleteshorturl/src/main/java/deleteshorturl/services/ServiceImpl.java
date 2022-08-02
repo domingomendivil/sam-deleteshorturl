@@ -17,12 +17,12 @@ public class ServiceImpl implements Service {
 	 */
 	private final Events events;
 	
-	private final String baseURL;
+	private final BaseURL baseURL;
 	
 	private final IdValidator idValidator;
 	
 
-	public ServiceImpl(Events events,IdValidator idValidator,String baseURL){
+	public ServiceImpl(Events events,IdValidator idValidator,BaseURL baseURL){
 		this.events=events;
 		this.idValidator=idValidator;
 		this.baseURL=baseURL;
@@ -53,7 +53,7 @@ public class ServiceImpl implements Service {
 				i--;	
 			}
 			String base= shortURL.toString().replace(shortCode,"");
-			if (base.equals(baseURL)){
+			if (base.equals(baseURL.toString())){
 				return shortCode;
 			}else{
 				return "";

@@ -2,12 +2,14 @@ package deleteshorturl.config;
 
 import java.net.URI;
 
+import deleteshorturl.apigateway.DeleteShortURL;
 import deleteshorturl.dao.DAO;
 import deleteshorturl.dao.DynamoDAO;
 import deleteshorturl.events.Events;
 import deleteshorturl.events.EventsImpl;
 import deleteshorturl.idvalidator.IdValidator;
 import deleteshorturl.idvalidator.IdValidatorImpl;
+import deleteshorturl.services.BaseURL;
 import deleteshorturl.services.Service;
 import deleteshorturl.services.ServiceImpl;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -28,13 +30,16 @@ public class Factory {
     public static DAO dao;
     
     private static DynamoDbClient client;
+
+    private static DeleteShortURL deleteShortURL;
  
 
     public static synchronized Service getService() {
         if (service==null){
             IdValidator idValidator = getIdValidator();
             Events events = getEventsImpl();
-            service = new ServiceImpl(events, idValidator, baseURL);
+            BaseURL url= new BaseURL(baseURL);
+            service = new ServiceImpl(events, idValidator, url);
         }
         return service;
     }
@@ -76,6 +81,14 @@ public class Factory {
             }
         }
         return client;
+    }
+
+
+    public static synchronized DeleteShortURL getDeleteShortURL() {
+        if (deleteShortURL==null){
+            deleteShortURL= new DeleteShortURL(getService());
+        }
+        return deleteShortURL;
     }
 
 }

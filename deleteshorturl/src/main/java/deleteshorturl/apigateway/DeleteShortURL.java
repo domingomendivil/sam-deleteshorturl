@@ -6,21 +6,20 @@ import java.net.URL;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 
 import deleteshorturl.services.InvalidArgumentsException;
 import deleteshorturl.services.Service;
-import deleteshorturl.config.Factory;
 
-/**
- * AWS Lambda Handler request for deleting a Short URL
- */
-public class DeleteShortURL implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
+public class DeleteShortURL {
 
-    private final Service service = Factory.getService();
+    private Service service;
 
+    public DeleteShortURL(Service service){
+        this.service=service;
+    }
+    
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
         String shortURL = input.getBody();
         boolean isValid = UrlValidator.getInstance().isValid(shortURL);
@@ -39,5 +38,4 @@ public class DeleteShortURL implements RequestHandler<APIGatewayProxyRequestEven
             return ResponseCreator.getBadRequestResponse();
         }
     }
-
 }
