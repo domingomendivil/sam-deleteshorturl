@@ -5,7 +5,6 @@ import java.net.URL;
 
 import org.apache.commons.validator.routines.UrlValidator;
 
-import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 
@@ -14,15 +13,18 @@ import deleteshorturl.services.Service;
 
 public class DeleteShortURL {
 
+	private static final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+	
+	
     private Service service;
 
     public DeleteShortURL(Service service){
         this.service=service;
     }
     
-    public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
+    public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input) {
         String shortURL = input.getBody();
-        boolean isValid = UrlValidator.getInstance().isValid(shortURL);
+        boolean isValid = urlValidator.isValid(shortURL);
         if (isValid) {
             try {
                 var shortPath = new URL(shortURL);

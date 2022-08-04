@@ -12,10 +12,10 @@ import deleteshorturl.config.Factory;
  */
 public class DeleteShortURLGW implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    private final DeleteShortURL service = Factory.getDeleteShortURL();
+    private static final DeleteShortURL service = Factory.deleteShortURL;
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
-       return service.handleRequest(input, context);
+       return service.handleRequest(input);
     }
 
 }

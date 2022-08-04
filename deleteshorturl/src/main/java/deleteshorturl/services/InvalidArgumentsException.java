@@ -1,6 +1,15 @@
 package deleteshorturl.services;
 
 public class InvalidArgumentsException extends Exception{
+	
+	public InvalidArgumentsException() {
+		
+	}
+
+
+	public InvalidArgumentsException(Throwable e) {
+		super(e);
+	}
 
 	/**
 	 * 

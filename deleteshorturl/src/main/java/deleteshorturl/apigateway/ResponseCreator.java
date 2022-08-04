@@ -8,13 +8,16 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import software.amazon.awssdk.http.HttpStatusCode;
 
 public class ResponseCreator {
+	
+	private ResponseCreator() {
+		//cannot instantiate this class
+	}
 
 	
 	private static  APIGatewayProxyResponseEvent getTextResponse() {
 		Map<String, String> headers = new HashMap<>();
 		headers.put("Content-Type", "text/html");
-		APIGatewayProxyResponseEvent response = new APIGatewayProxyResponseEvent().withHeaders(headers);
-		return response;
+		return new APIGatewayProxyResponseEvent().withHeaders(headers);
 	}
 	
 	static  APIGatewayProxyResponseEvent getNotFoundResponse() {

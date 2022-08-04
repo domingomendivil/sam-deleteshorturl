@@ -6,13 +6,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.junit.Test;
+import org.junit.Test.None;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import deleteshorturl.events.Events;
-import deleteshorturl.idvalidator.IdValidator;
+import urlutils.idvalidator.IdValidator;
+import urlutils.idvalidator.ValidationException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServiceImplTest {
@@ -24,54 +26,23 @@ public class ServiceImplTest {
     private Events events;
 
     @Mock
-    private BaseURL baseURL;
-
-    @Mock
     private IdValidator idValidator;
 
     
     @Test(expected = InvalidArgumentsException.class)
-    public void testDeleteShortURL2() throws MalformedURLException, InvalidArgumentsException{
-        svc.deleteURL(new URL("http://www.montevideo.com.uy"));    
+    public void testDeleteShortURL2() throws MalformedURLException, InvalidArgumentsException, ValidationException{
+    	URL url = new URL("http://www.montevideo.com.uy");
+    	ValidationException e = new ValidationException();
+    	when(idValidator.getCode(url)).thenThrow(e);
+    	svc.deleteURL(new URL("http://www.montevideo.com.uy"));    
     }
 
-    @Test
-    public void testDeleteShortURL3() throws MalformedURLException, InvalidArgumentsException{
+    @Test(expected = None.class)
+    public void testDeleteShortURL3() throws MalformedURLException, InvalidArgumentsException, ValidationException{
         String shortPath="FKSLC5S";
-        when(idValidator.isValid(shortPath)).thenReturn(true);
-        when(baseURL.toString()).thenReturn("http://localhost:8000/");
+        URL url  = new URL("http://localhost:8000/FKSLC5S");
+        when(idValidator.getCode(url)).thenReturn(shortPath);
         svc.deleteURL(new URL("http://localhost:8000/FKSLC5S"));    
-    }
-
-
-    @Test(expected = InvalidArgumentsException.class)
-    public void testGetDeleteShortURL4() throws MalformedURLException, InvalidArgumentsException{
-        svc.deleteURL(new URL("http://www.montevideo.com.uy"));    
-
-    }
-
-    @Test(expected = InvalidArgumentsException.class)
-    public void testGetDeleteShortUR5() throws MalformedURLException, InvalidArgumentsException{
-        svc.deleteURL(new URL("http://www.montevideo.com.uy/"));    
-
-    }
-
-    @Test(expected = InvalidArgumentsException.class)
-    public void testDeleteShortURL6() throws MalformedURLException, InvalidArgumentsException{
-          svc.deleteURL(new URL("http://localhost:8999/asdfed"));    
-
-    }
-
-    @Test(expected =  InvalidArgumentsException.class)
-    public void testDeleteShortURL7() throws MalformedURLException, InvalidArgumentsException{
-        String shortPath="FKSLC5S";
-        when(idValidator.isValid(shortPath)).thenReturn(false);
-        svc.deleteURL(new URL("http://localhost:8000/FKSLC5S"));    
-    }
-
-    @Test(expected = InvalidArgumentsException.class)
-    public void testDeleteShortURL8() throws MalformedURLException, InvalidArgumentsException{
-       svc.deleteURL(new URL("http://www.montevideo.com.uy/a"));    
     }
 
 
