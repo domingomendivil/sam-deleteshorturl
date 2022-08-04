@@ -3,6 +3,8 @@ package deleteshorturl.services;
 import java.net.URL;
 import java.time.LocalDate;
 
+import lombok.Data;
+
 
 /**
  * An URL Item relates the url with the corresponding short URL, indicating
@@ -12,7 +14,7 @@ import java.time.LocalDate;
  * short URL will be deleted and cannot be accesed. 
  * 
  */
-
+@Data
 public class URLItem {
 	
 	/*
@@ -39,85 +41,6 @@ public class URLItem {
 	 */
 	private Long expirationHours;
     
-	/*
-	 * From this part of the class till the end, there exist the corresponding 
-	 * getters, setters and the equals() and hashCode() methods.
-	 */
-    public Long getExpirationHours() {
-        return expirationHours;
-    }
-
-    public void setExpirationHours(Long expirationHours) {
-        this.expirationHours = expirationHours;
-    }
-
-    public void setShortPath(String shortPath){
-        this.shortPath=shortPath;
-    }
-
-    public String getShortPath(){
-        return this.shortPath;
-    }
-
-    public void setLongURL(URL longURL){
-        this.longURL=longURL;
-    }
-
-    public URL getLongURL(){
-        return this.longURL;
-    }
-
-    public void setCreationDate(LocalDate creationDate){
-        this.creationDate=creationDate;
-    }
-
-    public LocalDate getCreationDate(){
-        return this.creationDate;
-    }
-    
-    
-    @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((expirationHours == null) ? 0 : expirationHours.hashCode());
-		result = prime * result + ((longURL == null) ? 0 : longURL.hashCode());
-		result = prime * result + ((shortPath == null) ? 0 : shortPath.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		URLItem other = (URLItem) obj;
-		if (creationDate == null) {
-			if (other.creationDate != null)
-				return false;
-		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (expirationHours == null) {
-			if (other.expirationHours != null)
-				return false;
-		} else if (!expirationHours.equals(other.expirationHours))
-			return false;
-		if (longURL == null) {
-			if (other.longURL != null)
-				return false;
-		} else if (!longURL.equals(other.longURL))
-			return false;
-		if (shortPath == null) {
-			if (other.shortPath != null)
-				return false;
-		} else if (!shortPath.equals(other.shortPath))
-			return false;
-		return true;
-	}
-
+	
 	
 }
