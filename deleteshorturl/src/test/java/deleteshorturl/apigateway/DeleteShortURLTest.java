@@ -1,14 +1,15 @@
 package deleteshorturl.apigateway;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 
 import deleteshorturl.services.Service;
-import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
-
+@RunWith(MockitoJUnitRunner.class)
 public class DeleteShortURLTest {
 
     @Mock
