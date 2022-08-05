@@ -12,6 +12,7 @@ public class EventsImpl implements Events{
 
 	@Override
 	public void delete(String shortPath) {
+		System.out.println("events shortpath "+shortPath);
 		dao.deleteById(shortPath);
 	}
 

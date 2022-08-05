@@ -12,22 +12,24 @@ Parameters:
   BaseURL:
     Type: String
     Default: "http://localhost:3000"
-    
+  DynamoURL:
+    Type: String
+    Default: "http://dynamo-local:8000"
 Resources:
   DeleteShortFunction:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: deleteshorturl
-      Handler: deleteshorturl.apigateway.DeleteShortURL::handleRequest
+      Handler: deleteshorturl.apigateway.DeleteShortURLGW::handleRequest
       Runtime: java11
       Architectures:
         - x86_64
       MemorySize: 512
       Environment: 
         Variables:
-          PARAM1: VALUE
           JAVA_TOOL_OPTIONS: -XX:+TieredCompilation -XX:TieredStopAtLevel=1 
           BASE_URL: !Ref BaseURL
+          DYNAMO_URL: !Ref DynamoURL
       Events:
         DelteShortURLevent:
           Type: Api 

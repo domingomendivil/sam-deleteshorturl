@@ -22,6 +22,8 @@ public class DynamoDAO implements DAO {
 
 	@Override
 	public boolean deleteById(String shortPath) {
+		System.out.println("dynamodao shortpath "+shortPath);
+
 		HashMap<String, AttributeValue> itemKey = new HashMap<>();
 		itemKey.put(PK, AttributeValue.fromS(shortPath));
 		DeleteItemRequest request = DeleteItemRequest.builder()
@@ -30,7 +32,8 @@ public class DynamoDAO implements DAO {
 				.returnValues(ReturnValue.ALL_OLD)
 				.build(); 
 		var res = client.deleteItem(request);
-		return !res.attributes().isEmpty();
+		res.sdkHttpResponse().statusCode();
+		return res.sdkHttpResponse().statusCode()==200;
 	}
     
 }
