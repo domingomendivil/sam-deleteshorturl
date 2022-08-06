@@ -24,6 +24,9 @@ Parameters:
   CacheEnabled:
     Type: String
     Default: "false"
+  RandomAlphabet:
+    Type: String
+    Default: "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 Resources:
   DeleteShortFunction:
     Type: AWS::Serverless::Function 
@@ -33,6 +36,8 @@ Resources:
       Runtime: java11
       Architectures:
         - x86_64
+      Policies:
+      - AmazonDynamoDBFullAccess
       MemorySize: 512
       Environment: 
         Variables:
@@ -42,6 +47,7 @@ Resources:
           DELETER_FACTORY: !Ref DeleterFactory
           CACHE_FACTORY: !Ref CacheFactory
           CACHE_ENABLED: !Ref CacheEnabled
+          RANDOM_ALPHABET: !Ref RandomAlphabet
       Events:
         DelteShortURLevent:
           Type: Api 

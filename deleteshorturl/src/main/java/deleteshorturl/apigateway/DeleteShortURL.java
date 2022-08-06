@@ -34,7 +34,7 @@ public class DeleteShortURL {
                 if (service.deleteURL(shortPath)){
                     return ResponseCreator.getOKResponse("URL deleted");
                 }else{
-                    return ResponseCreator.getInternalErrorResponse();
+                    return ResponseCreator.getNotFoundResponse();
                 }
             } catch (InvalidArgumentsException|MalformedURLException e) {
                 return ResponseCreator.getBadRequestResponse();
