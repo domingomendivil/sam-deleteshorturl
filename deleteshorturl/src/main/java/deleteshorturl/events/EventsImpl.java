@@ -1,19 +1,18 @@
 package deleteshorturl.events;
 
-import deleteshorturl.dao.DAO;
+import shorturls.dao.Deleter;
 
 public class EventsImpl implements Events{
 
-	private final DAO dao;
+	private final Deleter deleter;
 
-	public EventsImpl(DAO dao){
-		this.dao=dao;
+	public EventsImpl(Deleter dao){
+		this.deleter=dao;
 	}
 
 	@Override
 	public void delete(String shortPath) {
-		System.out.println("events shortpath "+shortPath);
-		dao.deleteById(shortPath);
+		deleter.deleteById(shortPath);
 	}
 
 

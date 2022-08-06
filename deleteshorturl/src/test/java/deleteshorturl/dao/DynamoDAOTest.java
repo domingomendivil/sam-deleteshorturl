@@ -2,6 +2,7 @@ package deleteshorturl.dao;
 
 import java.net.URI;
 
+import shorturls.dynamodao.DynamoDAO;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 //@RunWith(MockitoJUnitRunner.class)

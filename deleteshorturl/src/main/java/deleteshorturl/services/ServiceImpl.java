@@ -27,9 +27,7 @@ public class ServiceImpl implements Service {
 	public void deleteURL(URL shortURL) throws InvalidArgumentsException {
 		String shortPath;
 		try {
-			System.out.println("shortURL "+shortURL.toString());
 			shortPath = idValidator.getCode(shortURL);
-			System.out.println("idvalidator shortpath "+shortPath);
 			events.delete(shortPath);
 		} catch (ValidationException e) {
 			throw new InvalidArgumentsException(e);

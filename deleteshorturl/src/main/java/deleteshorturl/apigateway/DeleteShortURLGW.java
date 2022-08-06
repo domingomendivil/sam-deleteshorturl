@@ -15,7 +15,7 @@ public class DeleteShortURLGW implements RequestHandler<APIGatewayProxyRequestEv
     private static final DeleteShortURL service = Factory.deleteShortURL;
 
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input, final Context context) {
-       return service.handleRequest(input);
+    	return service.handleRequest(input);
     }
 
 }
