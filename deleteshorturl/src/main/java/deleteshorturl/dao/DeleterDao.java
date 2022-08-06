@@ -1,6 +1,6 @@
 package deleteshorturl.dao;
 
-import shorturl.cache.Cache;
+import shorturls.cache.Cache;
 import shorturls.dao.Deleter;
 
 public class DeleterDao implements Deleter{

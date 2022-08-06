@@ -10,21 +10,24 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 
 import deleteshorturl.services.InvalidArgumentsException;
 import deleteshorturl.services.Service;
+import shorturls.apigateway.ResponseCreator;
+
+
 
 public class DeleteShortURL {
 
 	private static final UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
 	
 	
-    private Service service;
+    private final Service service;
 
     public DeleteShortURL(Service service){
         this.service=service;
     }
     
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input) {
-        String shortURL = input.getBody();
-        boolean isValid = urlValidator.isValid(shortURL);
+        var shortURL = input.getBody();
+        var isValid = urlValidator.isValid(shortURL);
         if (isValid) {
             try {
                 var shortPath = new URL(shortURL);

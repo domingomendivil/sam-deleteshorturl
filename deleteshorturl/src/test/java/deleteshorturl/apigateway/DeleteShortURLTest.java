@@ -43,7 +43,7 @@ public class DeleteShortURLTest {
         Mockito.when(svc.deleteURL(new URL("http://localhost:3000"))).thenReturn(true);
         var event = deleteShortURL.handleRequest(input);
     
-        assertEquals(Integer.valueOf(202),event.getStatusCode());
+        assertEquals(Integer.valueOf(200),event.getStatusCode());
     }
     
     @Test
