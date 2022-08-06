@@ -2,7 +2,7 @@ package deleteshorturl.services;
 
 import java.net.URL;
 
-import deleteshorturl.events.Events;
+import shorturls.dao.Deleter;
 import urlutils.idvalidator.IdValidator;
 import urlutils.idvalidator.ValidationException;
 
@@ -13,22 +13,22 @@ import urlutils.idvalidator.ValidationException;
  */
 public class ServiceImpl implements Service {
 
-	private final Events events;
+	private final Deleter deleter;
 
 
 	private final IdValidator idValidator;
 
-	public ServiceImpl(Events events, IdValidator idValidator) {
-		this.events = events;
+	public ServiceImpl(Deleter deleter, IdValidator idValidator) {
 		this.idValidator = idValidator;
+		this.deleter=deleter;
 	}
 
 	@Override
-	public void deleteURL(URL shortURL) throws InvalidArgumentsException {
+	public boolean deleteURL(URL shortURL) throws InvalidArgumentsException {
 		String shortPath;
 		try {
 			shortPath = idValidator.getCode(shortURL);
-			events.delete(shortPath);
+			return deleter.deleteById(shortPath);
 		} catch (ValidationException e) {
 			throw new InvalidArgumentsException(e);
 		}

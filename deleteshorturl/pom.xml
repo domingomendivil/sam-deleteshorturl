@@ -75,6 +75,18 @@
 			<artifactId>shorturl-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+		<groupId>com.meli</groupId>
+		<artifactId>shorturl-cache-api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.meli</groupId>
+			<artifactId>shorturl-cache-redis</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 

@@ -5,14 +5,14 @@ import static org.mockito.Mockito.when;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import org.junit.Test.None;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import deleteshorturl.events.Events;
+import shorturls.dao.Deleter;
 import urlutils.idvalidator.IdValidator;
 import urlutils.idvalidator.ValidationException;
 
@@ -23,10 +23,10 @@ public class ServiceImplTest {
     private ServiceImpl svc;
 
     @Mock
-    private Events events;
+    private IdValidator idValidator;
 
     @Mock
-    private IdValidator idValidator;
+    private Deleter deleter;
 
     
     @Test(expected = InvalidArgumentsException.class)
@@ -37,12 +37,13 @@ public class ServiceImplTest {
     	svc.deleteURL(new URL("http://www.montevideo.com.uy"));    
     }
 
-    @Test(expected = None.class)
+    @Test
     public void testDeleteShortURL3() throws MalformedURLException, InvalidArgumentsException, ValidationException{
         String shortPath="FKSLC5S";
         URL url  = new URL("http://localhost:8000/FKSLC5S");
         when(idValidator.getCode(url)).thenReturn(shortPath);
-        svc.deleteURL(new URL("http://localhost:8000/FKSLC5S"));    
+        when(deleter.deleteById(shortPath)).thenReturn(true);
+        assertTrue(svc.deleteURL(new URL("http://localhost:8000/FKSLC5S")));    
     }
 
 

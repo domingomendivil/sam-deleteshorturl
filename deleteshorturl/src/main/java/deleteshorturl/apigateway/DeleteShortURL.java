@@ -28,11 +28,12 @@ public class DeleteShortURL {
         if (isValid) {
             try {
                 var shortPath = new URL(shortURL);
-                service.deleteURL(shortPath);
-                return ResponseCreator.getOKResponse("URL deleted");
-            } catch (MalformedURLException e) {
-                return ResponseCreator.getInternalErrorResponse();
-            } catch (InvalidArgumentsException e) {
+                if (service.deleteURL(shortPath)){
+                    return ResponseCreator.getOKResponse("URL deleted");
+                }else{
+                    return ResponseCreator.getInternalErrorResponse();
+                }
+            } catch (InvalidArgumentsException|MalformedURLException e) {
                 return ResponseCreator.getBadRequestResponse();
             }
 

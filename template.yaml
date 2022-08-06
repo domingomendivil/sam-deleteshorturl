@@ -18,6 +18,12 @@ Parameters:
   DeleterFactory:
     Type: String
     Default: "shorturls.dynamodao.DynamoDAOFactory"    
+  CacheFactory:
+    Type: String
+    Default: "shorturl.cache.RedisCacheFactory"
+  CacheEnabled:
+    Type: String
+    Default: "false"
 Resources:
   DeleteShortFunction:
     Type: AWS::Serverless::Function 
@@ -34,6 +40,8 @@ Resources:
           BASE_URL: !Ref BaseURL
           DYNAMO_URL: !Ref DynamoURL
           DELETER_FACTORY: !Ref DeleterFactory
+          CACHE_FACTORY: !Ref CacheFactory
+          CACHE_ENABLED: !Ref CacheEnabled
       Events:
         DelteShortURLevent:
           Type: Api 

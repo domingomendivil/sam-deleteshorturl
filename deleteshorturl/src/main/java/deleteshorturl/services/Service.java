@@ -27,7 +27,7 @@ public interface Service {
 	 * @param shortURL the short URL to delete
 	 * @throws InvalidArgumentsException
 	 */
-	public void deleteURL(URL shortURL) throws InvalidArgumentsException;
+	public boolean deleteURL(URL shortURL) throws InvalidArgumentsException;
 	
 
 }
