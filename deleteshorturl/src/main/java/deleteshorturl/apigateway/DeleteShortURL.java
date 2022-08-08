@@ -10,6 +10,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 
 import deleteshorturl.services.InvalidArgumentsException;
 import deleteshorturl.services.Service;
+import lombok.val;
 import shorturls.apigateway.ResponseCreator;
 
 
@@ -26,11 +27,11 @@ public class DeleteShortURL {
     }
     
     public APIGatewayProxyResponseEvent handleRequest(final APIGatewayProxyRequestEvent input) {
-        var shortURL = input.getBody();
-        var isValid = urlValidator.isValid(shortURL);
+        val shortURL = input.getBody();
+        val isValid = urlValidator.isValid(shortURL);
         if (isValid) {
             try {
-                var shortPath = new URL(shortURL);
+                val shortPath = new URL(shortURL);
                 if (service.deleteURL(shortPath)){
                     return ResponseCreator.getOKResponse("URL deleted");
                 }else{
