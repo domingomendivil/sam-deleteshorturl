@@ -11,8 +11,9 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 import deleteshorturl.services.InvalidArgumentsException;
 import deleteshorturl.services.Service;
 import lombok.val;
-import shorturls.apigateway.ResponseCreator;
-
+import static shorturls.apigateway.ResponseCreator.getOKResponse;
+import static shorturls.apigateway.ResponseCreator.getNotFoundResponse;
+import static shorturls.apigateway.ResponseCreator.getBadRequestResponse;
 
 
 public class DeleteShortURL {
@@ -33,16 +34,16 @@ public class DeleteShortURL {
             try {
                 val shortPath = new URL(shortURL);
                 if (service.deleteURL(shortPath)){
-                    return ResponseCreator.getOKResponse("URL deleted");
+                    return getOKResponse("URL deleted");
                 }else{
-                    return ResponseCreator.getNotFoundResponse();
+                    return getNotFoundResponse();
                 }
             } catch (InvalidArgumentsException|MalformedURLException e) {
-                return ResponseCreator.getBadRequestResponse();
+                return getBadRequestResponse();
             }
 
         } else {
-            return ResponseCreator.getBadRequestResponse();
+            return getBadRequestResponse();
         }
     }
 }
